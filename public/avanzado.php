@@ -23,14 +23,14 @@ date_default_timezone_set('America/Bogota');
     <script src="js/library/jquery/dist/jquery.min.js"></script>
     <title>SCRIS | Avanzado</title>
     <style>
-    .footer p {
-        text-align: center;
-        padding: 1em;
-        color: #fffa;
-    }
+        .footer p {
+            text-align: center;
+            padding: 1em;
+            color: #fffa;
+        }
 
-    <?php include 'css/advance.css';
-    ?>
+        <?php include 'css/advance.css';
+        ?>
     </style>
 </head>
 
@@ -56,6 +56,7 @@ date_default_timezone_set('America/Bogota');
         <div class="flex">
             <a href="buscar.php" class="buscar_registros">BUSCAR REGISTROS</a>
             <a href="termino_labores.php" class="termino_labores">PERSONAL QUE TERMINÓ LABORES</a>
+            <a href="agregar_registro.php" class="agregar_registro.php">AGREGAR REGISTRO</a>
             <button class="avanzado">OPCIONES AVANZADAS</button>
         </div>
     </section>
@@ -75,8 +76,7 @@ date_default_timezone_set('America/Bogota');
                 <div class="contrasena">
                     <div class="inputs">
                         <div class="entries">
-                            <input type="password" name="contraseña" id="password" autocomplete="new-password"
-                                aria-autocomplete="false" aria-disabled="true">
+                            <input type="password" name="contraseña" id="password" autocomplete="new-password" aria-autocomplete="false" aria-disabled="true">
                         </div>
                         <div class="op">
                             <input type="submit" value="Aceptar" id="enviar">
@@ -94,39 +94,39 @@ date_default_timezone_set('America/Bogota');
         <p>&copy; 2022 - SCRIS | Todos los derechos reservados</p>
     </footer>
     <script>
-    $('.avanzado').click(function() {
-        $('.administrador').addClass('administrador--active');
-        $('.cont_adm').addClass('cont_adm--open');
-    });
-    $('.cancel').click(function() {
-        $('.administrador').removeClass('administrador--active');
-        $('.cont_adm').removeClass('cont_adm--open');
-    });
-
-    $('#enviar').click(function() {
-        var contrasena = $('#password').val();
-
-        $.ajax({
-            url: 'packages/Actions/PassAdvance/PassAdvance.php',
-            type: 'POST',
-            data: {
-                contrasena: contrasena
-            },
-            success: function(response) {
-                if (response == 'correcto') {
-
-                    $('#password').css('border', '2px solid #0a0');
-                    window.location.href = 'packages/admin/';
-                } else {
-                    //placeholder para contraseña incorrecta en color rojo
-                    $('#password').css('border', '2px solid red');
-                    $('#password').attr('placeholder', 'Contraseña incorrecta');
-                    $('#password').val('');
-                }
-                console.log(response);
-            }
+        $('.avanzado').click(function() {
+            $('.administrador').addClass('administrador--active');
+            $('.cont_adm').addClass('cont_adm--open');
         });
-    });
+        $('.cancel').click(function() {
+            $('.administrador').removeClass('administrador--active');
+            $('.cont_adm').removeClass('cont_adm--open');
+        });
+
+        $('#enviar').click(function() {
+            var contrasena = $('#password').val();
+
+            $.ajax({
+                url: 'packages/Actions/PassAdvance/PassAdvance.php',
+                type: 'POST',
+                data: {
+                    contrasena: contrasena
+                },
+                success: function(response) {
+                    if (response == 'correcto') {
+
+                        $('#password').css('border', '2px solid #0a0');
+                        window.location.href = 'packages/admin/';
+                    } else {
+                        //placeholder para contraseña incorrecta en color rojo
+                        $('#password').css('border', '2px solid red');
+                        $('#password').attr('placeholder', 'Contraseña incorrecta');
+                        $('#password').val('');
+                    }
+                    console.log(response);
+                }
+            });
+        });
     </script>
 
 </body>
