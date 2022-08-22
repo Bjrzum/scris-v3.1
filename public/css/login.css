@@ -26,40 +26,34 @@ form {
   max-width: 400px;
   margin: auto;
 }
-
 form .form-group {
   margin-bottom: 1em;
 }
-
 form .form-group label,
 form .form-group input {
   display: inline-block;
   width: 100%;
 }
-
 form .form-group input {
-  padding: .5em;
+  padding: 0.5em;
   outline: none;
 }
-
 form .form-group label {
   font-weight: 500;
   font-size: 1.1em;
-  padding: .3em;
+  padding: 0.3em;
 }
-
-form .form-group input[type="submit"] {
+form .form-group input[type=submit] {
   padding: 1em;
   font-size: 1em;
   font-weight: 500;
   background-color: #48e;
   color: #fff;
   border: none;
-  border-radius: .3em;
+  border-radius: 0.3em;
   cursor: pointer;
 }
-
-form .form-group input[type="submit"]:hover {
+form .form-group input[type=submit]:hover {
   background-color: #333;
 }
 

@@ -1,0 +1,33 @@
+.btn-mas {
+    display: inline-block;
+    padding: .5em;
+    background-color: #008000;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    color: #fff;
+
+    &:hover {
+        background-color: #006100;
+        cursor: pointer;
+    }
+}
+
+.buscar-mas {
+
+    display: none;
+
+    input {
+        display: inline-block;
+        padding: .3em;
+        margin: .2em;
+    }
+
+    button {
+        @extend .btn-mas;
+        padding: .3em;
+    }
+}
+
+.btn-cancel {
+    @extend .btn-mas;
+}

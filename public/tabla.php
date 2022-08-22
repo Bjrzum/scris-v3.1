@@ -20,17 +20,19 @@ date_default_timezone_set('America/Bogota');
     <link rel="shortcut icon" href="img/favicon.png" type="image/png">
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/inicio.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <script src="js/library/jquery/dist/jquery.min.js"></script>
     <title>SCRIS | Tabla</title>
     <style>
-    .footer p {
-        text-align: center;
-        padding: 1em;
-        color: #fffa;
-    }
+        .footer p {
+            text-align: center;
+            padding: 1em;
+            color: #fffa;
+        }
 
-    <?php include 'css/tabla.css';
-    ?>
+        <?php include 'css/tabla.css';
+        include 'css/tabla-buscar.css';
+        ?>
     </style>
 </head>
 
@@ -57,6 +59,18 @@ date_default_timezone_set('America/Bogota');
         <div class="header2">
             <div class="generar__excel">
                 <a href="generar_excel.php" class="link__excel">Enviar Reporte</a>
+                <button class="btn-mas"><i class="bi bi-caret-down-fill"></i></button>
+
+                <div class="buscar-mas">
+                    <input type="date" name="inicio" id="inicio">
+                    <input type="date" name="fin" id="fin">
+                    <button class="btn-buscar">Buscar</button>
+                    <button class="btn-cancel">Cancelar</button>
+                </div>
+                <script>
+                    <?php include 'js/tabla-buscar.js'; ?>
+                </script>
+
             </div>
             <div class="administrar__tabla">
                 <div class="marcar_novedades">
@@ -68,151 +82,158 @@ date_default_timezone_set('America/Bogota');
             </div>
         </div>
         <div class="flex">
-            <table class="tabla">
-                <thead>
-                    <tr>
-                        <th class="fec">fecha</th>
-                        <th class="nom">nombre</th>
-                        <th class="dep">dependencia</th>
-                        <th class="dir">dirección de curso</th>
-                        <th class="asig">asignatura</th>
-                        <th class="hor">hora de ingreso</th>
-                        <th class="hor2">hora de salida</th>
-                        <th class="pla">placa de vehiculo</th>
-                        <th class="obs">observaciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
+            <?php
+            if (isset($_GET['buscar_tabla'])) {
+                $fecha_inicio = $_GET['inicio'];
+                $fecha_fin = $_GET['fin'];
+            } else {
+            ?>
+                <table class="tabla">
+                    <thead>
+                        <tr>
+                            <th class="fec">fecha</th>
+                            <th class="nom">nombre</th>
+                            <th class="dep">dependencia</th>
+                            <th class="dir">dirección de curso</th>
+                            <th class="asig">asignatura</th>
+                            <th class="hor">hora de ingreso</th>
+                            <th class="hor2">hora de salida</th>
+                            <th class="pla">placa de vehiculo</th>
+                            <th class="obs">observaciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
 
-                    include 'packages/Conexion.php';
-                    require_once 'packages/functions/tabla.php';
-
-
-
-                    $directivos = "";
-                    $docentes = "";
-                    $serviciosGenerales = "";
-                    $administrativos = "";
-                    $funcionarioCafeteria = "";
-                    $seguridad = "";
-                    $mensajeria = "";
-                    $funcionarioExterno = "";
-                    $fecha_hoy = date("Y/m/d");
-
-
-                    $ruta = 'db/scris.db';
-                    $conexion = conectar($ruta);
-                    //seleccionar de tabla todos a la fecha actual y que no sean novedades estatus 4
-                    $sql = "SELECT * FROM tabla WHERE fecha = '$fecha_hoy' AND status != 4 ORDER BY hora_ingreso ASC";
-                    $resultado = $conexion->query($sql);
-
-                    $sql3 = "SELECT * FROM tabla WHERE status = '4' AND  fecha = '$fecha_hoy' ";
-                    $resultado3 = $conexion->query($sql3);
-
-                    //recorrer resultado
-                    tabla_tr($resultado);
-                    tabla_tr($resultado3);
+                        include 'packages/Conexion.php';
+                        require_once 'packages/functions/tabla.php';
 
 
 
-                    ?>
-                </tbody>
-            </table>
+                        $directivos = "";
+                        $docentes = "";
+                        $serviciosGenerales = "";
+                        $administrativos = "";
+                        $funcionarioCafeteria = "";
+                        $seguridad = "";
+                        $mensajeria = "";
+                        $funcionarioExterno = "";
+                        $fecha_hoy = date("Y/m/d");
+
+
+                        $ruta = 'db/scris.db';
+                        $conexion = conectar($ruta);
+
+                        // $db = "db/scris.db";
+                        // $conn = new SQLite3($db);
+
+                        // $sql = "UPDATE tabla SET orden = '1' WHERE  status != '4'";
+                        // $result = $conn->query($sql);
+                        // $sql = "UPDATE tabla SET orden = '2' WHERE status = '4'";
+                        // $result = $conn->query($sql);
+                        //seleccionar de tabla todos a la fecha actual y que no sean novedades estatus 4
+                        $sql = "SELECT * FROM tabla WHERE fecha = '$fecha_hoy' ORDER BY orden, hora_ingreso ASC";
+                        $resultado = $conexion->query($sql);
+                        //recorrer resultado
+                        tabla_tr($resultado);
+                        ?>
+                    </tbody>
+                </table>
+            <?php } ?>
         </div>
     </section>
     <footer class="footer">
         <p>&copy; 2022 - SCRIS | Todos los derechos reservados</p>
     </footer>
     <script>
-    <?php include 'js/tabla.js'; ?>
+        <?php include 'js/tabla.js'; ?>
 
-    function Modificar(clase, boolean) {
-        $(clase).keyup(function() {
-            //textarea
-            var id = $(this).data('class');
-            var valor = $(this).val();
-            var text = clase; //.hora_ingreso
-            var bool = boolean;
-            //quitar espacios y puntos
-            text = text.replace(/\s/g, '');
-            text = text.replace(/\./g, '');
-            var err = false;
-            var recontruir = false;
+        function Modificar(clase, boolean) {
+            $(clase).keyup(function() {
+                //textarea
+                var id = $(this).data('class');
+                var valor = $(this).val();
+                var text = clase; //.hora_ingreso
+                var bool = boolean;
+                //quitar espacios y puntos
+                text = text.replace(/\s/g, '');
+                text = text.replace(/\./g, '');
+                var err = false;
+                var recontruir = false;
 
-            if (bool) {
-                valor = valor.toUpperCase();
-            } else {
+                if (bool) {
+                    valor = valor.toUpperCase();
+                } else {
 
-                //eliminamos los espacios en blanco
-                if (valor != "") {
-                    valor = valor.replace(/\s/g, '');
-                    //verificamos que hayan :
-                    if (valor.indexOf(":") == -1) {
-                        err = true;
-                    } else {
-                        //dividimos la hora en dos partes
-                        var hora = valor.split(":");
-                        //tomamos el primer valor
-                        var hora1 = hora[0]; //'08'
-                        //verificar que se pueda pasar a entero
-                        if (isNaN(hora1)) {
+                    //eliminamos los espacios en blanco
+                    if (valor != "") {
+                        valor = valor.replace(/\s/g, '');
+                        //verificamos que hayan :
+                        if (valor.indexOf(":") == -1) {
                             err = true;
                         } else {
-                            //pasarlo a entero
-                            hora1 = parseInt(hora1);
-
-                            var hora2 = hora[1];
+                            //dividimos la hora en dos partes
+                            var hora = valor.split(":");
+                            //tomamos el primer valor
+                            var hora1 = hora[0]; //'08'
                             //verificar que se pueda pasar a entero
-                            if (isNaN(hora2)) {
+                            if (isNaN(hora1)) {
                                 err = true;
                             } else {
                                 //pasarlo a entero
-                                hora2 = parseInt(hora2);
-                                //verificar que sean menor a 60
-                                if (hora1 > 23 || hora2 > 59) {
+                                hora1 = parseInt(hora1);
+
+                                var hora2 = hora[1];
+                                //verificar que se pueda pasar a entero
+                                if (isNaN(hora2)) {
                                     err = true;
                                 } else {
-                                    recontruir = true;
+                                    //pasarlo a entero
+                                    hora2 = parseInt(hora2);
+                                    //verificar que sean menor a 60
+                                    if (hora1 > 23 || hora2 > 59) {
+                                        err = true;
+                                    } else {
+                                        recontruir = true;
+                                    }
                                 }
-                            }
 
+                            }
                         }
                     }
                 }
-            }
 
-            $(this).val(valor);
+                $(this).val(valor);
 
-            if (err) {
-                $(this).css('border', '2px solid red');
-            } else {
+                if (err) {
+                    $(this).css('border', '2px solid red');
+                } else {
 
-                if (recontruir) {
-                    var hora = hora1 + ":" + hora2;
-                }
-                $(this).css('border', 'none');
-
-                $.ajax({
-                    url: 'packages/Actions/Actualizar/Actualizar.php',
-                    type: 'POST',
-                    data: {
-                        id: id,
-                        valor: valor,
-                        text: text
-                    },
-                    success: function(data) {
-                        console.log(data);
+                    if (recontruir) {
+                        var hora = hora1 + ":" + hora2;
                     }
-                });
-            }
-        });
-    }
+                    $(this).css('border', 'none');
 
-    Modificar('.hora_ingreso', false);
-    Modificar('.hora_salida', false);
-    Modificar('.placa', true);
-    Modificar('.observaciones', true);
+                    $.ajax({
+                        url: 'packages/Actions/Actualizar/Actualizar.php',
+                        type: 'POST',
+                        data: {
+                            id: id,
+                            valor: valor,
+                            text: text
+                        },
+                        success: function(data) {
+                            console.log(data);
+                        }
+                    });
+                }
+            });
+        }
+
+        Modificar('.hora_ingreso', false);
+        Modificar('.hora_salida', false);
+        Modificar('.placa', true);
+        Modificar('.observaciones', true);
     </script>
 
 </body>
