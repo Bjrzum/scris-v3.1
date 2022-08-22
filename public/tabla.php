@@ -83,9 +83,18 @@ date_default_timezone_set('America/Bogota');
         </div>
         <div class="flex">
             <?php
+            require_once 'packages/functions/tabla.php';
             if (isset($_GET['buscar_tabla'])) {
-                $fecha_inicio = $_GET['inicio'];
-                $fecha_fin = $_GET['fin'];
+                $fecha_inicio = $_GET['inicio']; //2019-01-01
+                $fecha_fin = $_GET['fin']; //2019-01-01
+                //remplazar - por / 
+                $fecha_inicio = str_replace('-', '/', $fecha_inicio);
+                $fecha_fin = str_replace('-', '/', $fecha_fin);
+
+                $db = new PDO('sqlite:db/scris.db');
+                $sql = "SELECT * FROM tabla WHERE fecha BETWEEN '$fecha_inicio' AND '$fecha_fin' ORDER BY fecha, orden, hora_ingreso ASC";
+                $result = $db->query($sql);
+                tabla_buscar($result);
             } else {
             ?>
                 <table class="tabla">
@@ -106,7 +115,7 @@ date_default_timezone_set('America/Bogota');
                         <?php
 
                         include 'packages/Conexion.php';
-                        require_once 'packages/functions/tabla.php';
+
 
 
 
