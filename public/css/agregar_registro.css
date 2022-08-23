@@ -27,6 +27,8 @@
   height: 60px;
   padding: 0.3em;
   border: none;
+  text-align: center;
+  overflow: auto;
 }
 
 .btn {
