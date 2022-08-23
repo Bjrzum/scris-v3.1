@@ -55,7 +55,8 @@ date_default_timezone_set('America/Bogota');
     <section class="section">
         <div class="flex">
             <a href="buscar.php" class="buscar_registros">BUSCAR REGISTROS</a>
-            <a href="termino_labores.php" class="termino_labores">PERSONAL QUE TERMINÓ LABORES</a>
+            <a href="termino_labores.php" class="termino_labores">INICIO DE LABORES</a>
+            <a href="termino_labores.php" class="termino_labores">TÉRMINO DE LABORES</a>
             <a href="agregar_registro.php" class="agregar_registro.php">AGREGAR REGISTRO</a>
             <button class="avanzado">OPCIONES AVANZADAS</button>
         </div>
