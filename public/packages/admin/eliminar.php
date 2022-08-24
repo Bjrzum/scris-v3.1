@@ -23,19 +23,21 @@ date_default_timezone_set('America/Bogota');
     <script src="../../js/library/jquery/dist/jquery.min.js"></script>
     <title>SCRIS | Administrador - eliminar</title>
     <style>
-    .footer p {
-        text-align: center;
-        padding: 1em;
-        color: #fffa;
-    }
+        .footer p {
+            text-align: center;
+            padding: 1em;
+            color: #fffa;
+        }
 
-    .otros {
-        background-color: #444;
-    }
+        .otros {
+            background-color: #444;
+        }
 
-    .otros:hover {
-        background-color: #333;
-    }
+        .otros:hover {
+            background-color: #333;
+        }
+
+        <?php include '../../css/eliminar.css'; ?>
     </style>
 </head>
 
@@ -195,57 +197,82 @@ date_default_timezone_set('America/Bogota');
             ?>
         </div>
     </section>
+    <section class="emergent">
+        <div class="container__emerget">
+            <div class="title">
+                <p class="msm msm1">
+                    Esta acción no se puede deshacer.
+                </p>
+                <p class="msm msm2">
+                    ¿Estás seguro de querer eliminar este funcionario?
+                </p>
+                <p id="nombre-funcionario">DAMAR NARVÁEZ</p>
+            </div>
+            <div class="cuerpo">
+                <input type="date" name="fecha" id="fecha-deleted">
+            </div>
+            <div class="errores">
+                <!-- <p>* La fecha es obligatoria</p> -->
+            </div>
+            <div class="accion">
+                <button class="btn__delete" id="btn-delete">Eliminar</button>
+                <button class="btn__cancel" id="btn-cancel">Cancelar</button>
+            </div>
+        </div>
+    </section>
     <footer class="footer">
         <p>&copy; 2022 - SCRIS | Todos los derechos reservados</p>
     </footer>
     <script>
-    $('.btn__funcionario').click(function() {
-        var nombre = $(this).text();
-        //fecha DD/MM/YYYY
-        var fecha = new Date();
-        var dia = fecha.getDate();
-        var mes = fecha.getMonth() + 1;
-        var anio = fecha.getFullYear();
-        var hora = fecha.getHours();
-        var minutos = fecha.getMinutes();
+        <?php include '../../js/eliminar.js'; ?>
 
-        if (minutos < 10) {
-            minutos = "0" + minutos;
-        }
-        //pasar hora a formato 12 horas a.m. o p.m.
-        var hora12 = "";
-        if (hora > 12) {
-            hora12 = hora - 12;
-            hora12 = hora12 + ":" + minutos + " p.m.";
-        } else if (hora == 12) {
-            hora12 = hora + ":" + minutos + " p.m.";
-        } else {
-            hora12 = hora + ":" + minutos + " a.m.";
-        }
+        // $('.btn__funcionario').click(function() {
+        //     var nombre = $(this).text();
+        //     //fecha DD/MM/YYYY
+        //     var fecha = new Date();
+        //     var dia = fecha.getDate();
+        //     var mes = fecha.getMonth() + 1;
+        //     var anio = fecha.getFullYear();
+        //     var hora = fecha.getHours();
+        //     var minutos = fecha.getMinutes();
 
-        var fecha = dia + "/" + mes + "/" + anio;
-        var horas = hora12;
+        //     if (minutos < 10) {
+        //         minutos = "0" + minutos;
+        //     }
+        //     //pasar hora a formato 12 horas a.m. o p.m.
+        //     var hora12 = "";
+        //     if (hora > 12) {
+        //         hora12 = hora - 12;
+        //         hora12 = hora12 + ":" + minutos + " p.m.";
+        //     } else if (hora == 12) {
+        //         hora12 = hora + ":" + minutos + " p.m.";
+        //     } else {
+        //         hora12 = hora + ":" + minutos + " a.m.";
+        //     }
+
+        //     var fecha = dia + "/" + mes + "/" + anio;
+        //     var horas = hora12;
 
 
-        $(this).hide();
+        //     $(this).hide();
 
-        $.ajax({
-            url: 'functions/eliminar.php',
-            type: 'POST',
-            data: {
-                eliminar: true,
-                nombre: nombre,
-                fecha: fecha
-            },
-            success: function(response) {
-                if (response == 'ok') {
-                    alert('Eliminado correctamente');
-                } else {
-                    alert('Error al eliminar');
-                }
-            }
-        });
-    });
+        //     $.ajax({
+        //         url: 'functions/eliminar.php',
+        //         type: 'POST',
+        //         data: {
+        //             eliminar: true,
+        //             nombre: nombre,
+        //             fecha: fecha
+        //         },
+        //         success: function(response) {
+        //             if (response == 'ok') {
+        //                 alert('Eliminado correctamente');
+        //             } else {
+        //                 alert('Error al eliminar');
+        //             }
+        //         }
+        //     });
+        // });
     </script>
 
 </body>
