@@ -22,6 +22,11 @@ $('#btn-delete').click(function() {
     if (fecha == '') {
         errores.html('<p>* Debes ingresar una fecha</p>');
     } else {
+        //formato de fecha 2022-12-12 a 2022/12/12
+        var fechaFormato = fecha.split('-');
+        var fechaFormato = fechaFormato[0] + '/' + fechaFormato[1] + '/' + fechaFormato[2];
+        fecha = fechaFormato;
+
         $.ajax({
             url: 'functions/eliminar.php',
             type: 'POST',
