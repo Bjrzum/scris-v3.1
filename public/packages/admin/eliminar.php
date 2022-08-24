@@ -225,54 +225,6 @@ date_default_timezone_set('America/Bogota');
     </footer>
     <script>
         <?php include '../../js/eliminar.js'; ?>
-
-        // $('.btn__funcionario').click(function() {
-        //     var nombre = $(this).text();
-        //     //fecha DD/MM/YYYY
-        //     var fecha = new Date();
-        //     var dia = fecha.getDate();
-        //     var mes = fecha.getMonth() + 1;
-        //     var anio = fecha.getFullYear();
-        //     var hora = fecha.getHours();
-        //     var minutos = fecha.getMinutes();
-
-        //     if (minutos < 10) {
-        //         minutos = "0" + minutos;
-        //     }
-        //     //pasar hora a formato 12 horas a.m. o p.m.
-        //     var hora12 = "";
-        //     if (hora > 12) {
-        //         hora12 = hora - 12;
-        //         hora12 = hora12 + ":" + minutos + " p.m.";
-        //     } else if (hora == 12) {
-        //         hora12 = hora + ":" + minutos + " p.m.";
-        //     } else {
-        //         hora12 = hora + ":" + minutos + " a.m.";
-        //     }
-
-        //     var fecha = dia + "/" + mes + "/" + anio;
-        //     var horas = hora12;
-
-
-        //     $(this).hide();
-
-        //     $.ajax({
-        //         url: 'functions/eliminar.php',
-        //         type: 'POST',
-        //         data: {
-        //             eliminar: true,
-        //             nombre: nombre,
-        //             fecha: fecha
-        //         },
-        //         success: function(response) {
-        //             if (response == 'ok') {
-        //                 alert('Eliminado correctamente');
-        //             } else {
-        //                 alert('Error al eliminar');
-        //             }
-        //         }
-        //     });
-        // });
     </script>
 
 </body>
