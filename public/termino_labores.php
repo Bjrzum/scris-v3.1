@@ -23,18 +23,18 @@ date_default_timezone_set('America/Bogota');
     <script src="js/library/jquery/dist/jquery.min.js"></script>
     <title>SCRIS | Advance - Termino labores</title>
     <style>
-    .footer p {
-        text-align: center;
-        padding: 1em;
-        color: #fffa;
-    }
+        .footer p {
+            text-align: center;
+            padding: 1em;
+            color: #fffa;
+        }
 
-    tr {
-        background-color: #ffa;
-    }
+        tr {
+            background-color: #ffa;
+        }
 
-    <?php include 'css/tabla.css';
-    ?>
+        <?php include 'css/tabla.css';
+        ?>
     </style>
 </head>
 
@@ -69,6 +69,7 @@ date_default_timezone_set('America/Bogota');
                         <th class="asig">asignatura</th>
                         <th class="pla">placa de vehiculo</th>
                         <th class="obs">observaciones</th>
+                        <th class="act">acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -105,19 +106,22 @@ date_default_timezone_set('America/Bogota');
                         $direccion = $fila['direccion'];
                         $asignatura = $fila['asignatura'];
                         $placa = $fila['placa'];
-                        $observaciones = "TERMINÓ LABORES EN SCALAS";
+                        $observaciones = $fila['observaciones'];
 
-
+                        if ($observaciones == '' || $observaciones == null) {
+                            $observaciones = "TERMINÓ LABORES EN SCALAS";
+                        }
 
                         echo '
                      <tr>
-                        <td>' . $fecha . '</td>
+                        <td><textarea class="fecha" data-class="' . $id . '">' . $fecha . '</textarea></td>
                         <td>' . $nombre . '</td>
                         <td>' . $dependencia . '</td>
                         <td>' . $direccion . '</td>
                         <td>' . $asignatura . '</td>
                         <td>' . $placa . '</td>
-                        <td>' . $observaciones . '</td>
+                        <td><textarea class="observaciones" data-class="' . $id . '">' . $observaciones . '</textarea></td>
+                        <td><button class="btn-dlt" data-class="' . $id . '">Eliminar</button></td>
                      </tr>
                     ';
                     }
@@ -133,94 +137,110 @@ date_default_timezone_set('America/Bogota');
         <p>&copy; 2022 - SCRIS | Todos los derechos reservados</p>
     </footer>
     <script>
-    <?php include 'js/tabla.js'; ?>
+        <?php include 'js/tabla.js'; ?>
 
-    function Modificar(clase, boolean) {
-        $(clase).keyup(function() {
-            //textarea
-            var id = $(this).data('class');
-            var valor = $(this).val();
-            var text = clase; //.hora_ingreso
-            var bool = boolean;
-            //quitar espacios y puntos
-            text = text.replace(/\s/g, '');
-            text = text.replace(/\./g, '');
-            var err = false;
-            var recontruir = false;
+        function Modificar(clase, boolean) {
+            $(clase).keyup(function() {
+                //textarea
+                var id = $(this).data('class');
+                var valor = $(this).val();
+                var text = clase; //.hora_ingreso
+                var bool = boolean;
+                //quitar espacios y puntos
+                text = text.replace(/\s/g, '');
+                text = text.replace(/\./g, '');
+                if (text == 'fecha') {
+                    text = 'fecha_eliminacion';
+                }
+                var err = false;
 
-            if (bool) {
-                valor = valor.toUpperCase();
-            } else {
+                if (bool) {
+                    valor = valor.toUpperCase();
+                } else {
 
-                //eliminamos los espacios en blanco
-                if (valor != "") {
-                    valor = valor.replace(/\s/g, '');
-                    //verificamos que hayan :
-                    if (valor.indexOf(":") == -1) {
-                        err = true;
-                    } else {
-                        //dividimos la hora en dos partes
-                        var hora = valor.split(":");
-                        //tomamos el primer valor
-                        var hora1 = hora[0]; //'08'
-                        //verificar que se pueda pasar a entero
-                        if (isNaN(hora1)) {
+                    //eliminamos los espacios en blanco
+                    if (valor != "") {
+                        valor = valor.replace(/\s/g, '');
+                        //verificamos que hayan 2 /
+                        var contador = 0;
+                        for (var i = 0; i < valor.length; i++) {
+                            if (valor[i] == '/') {
+                                contador++;
+                            }
+                        }
+                        if (contador != 2) {
                             err = true;
                         } else {
-                            //pasarlo a entero
-                            hora1 = parseInt(hora1);
-
-                            var hora2 = hora[1];
-                            //verificar que se pueda pasar a entero
-                            if (isNaN(hora2)) {
+                            //array de fechas
+                            var fechas = valor.split('/');
+                            var year = fechas[0];
+                            var month = fechas[1];
+                            var day = fechas[2];
+                            //verificamos que la fecha sea valida
+                            if (year.length != 4 || month.length != 2 || day.length != 2) {
                                 err = true;
                             } else {
-                                //pasarlo a entero
-                                hora2 = parseInt(hora2);
-                                //verificar que sean menor a 60
-                                if (hora1 > 23 || hora2 > 59) {
+                                //vrificamos que el mes sea valido y que el dia sea valido
+                                if (month > 12 || month < 1 || day > 31 || day < 1) {
                                     err = true;
                                 } else {
-                                    recontruir = true;
+                                    //verificamos que el mes tenga 31 dias
+                                    if (month == 4 || month == 6 || month == 9 || month == 11) {
+                                        if (day > 30 || day < 1) {
+                                            err = true;
+                                        }
+                                    } else {
+                                        //verificamos que el mes tenga 28 dias
+                                        if (month == 2) {
+                                            //verificamos que el año sea bisiesto
+                                            if (year % 4 == 0) {
+                                                if (day > 29 || day < 1) {
+                                                    err = true;
+                                                }
+                                            } else {
+                                                if (day > 28 || day < 1) {
+                                                    err = true;
+                                                }
+                                            }
+                                        }
+                                    }
                                 }
                             }
 
                         }
                     }
                 }
-            }
 
-            $(this).val(valor);
+                $(this).val(valor);
 
-            if (err) {
-                $(this).css('border', '2px solid red');
-            } else {
+                if (err) {
+                    $(this).css('border', '2px solid red');
+                } else {
 
-                if (recontruir) {
-                    var hora = hora1 + ":" + hora2;
+
+                    $(this).css('border', 'none');
+                    $sql = "UPDATE funcionarios_eliminados SET " + text + " = '" + valor + "' WHERE id = " + id;
+
+                    $.ajax({
+                        url: 'packages/Actions/eliminados.php.php',
+                        type: 'POST',
+                        data: {
+                            id: id,
+                            valor: valor,
+                            text: text
+                        },
+                        success: function(data) {
+                            console.log(data);
+                        }
+                    });
                 }
-                $(this).css('border', 'none');
+            });
+        }
 
-                $.ajax({
-                    url: 'packages/Actions/Actualizar/Actualizar.php',
-                    type: 'POST',
-                    data: {
-                        id: id,
-                        valor: valor,
-                        text: text
-                    },
-                    success: function(data) {
-                        console.log(data);
-                    }
-                });
-            }
-        });
-    }
-
-    Modificar('.hora_ingreso', false);
-    Modificar('.hora_salida', false);
-    Modificar('.placa', true);
-    Modificar('.observaciones', true);
+        // Modificar('.hora_ingreso', false);
+        // Modificar('.hora_salida', false);
+        // Modificar('.placa', true);
+        // Modificar('.observaciones', true);
     </script>
 
 </body>
