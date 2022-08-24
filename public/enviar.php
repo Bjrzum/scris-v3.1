@@ -46,13 +46,13 @@ if (isset($_POST['enviar'])) {
         $mail->isSMTP();                                            //Send using SMTP
         $mail->Host       = 'smtp.hostinger.com';                     //Set the SMTP server to send through
         $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-        $mail->Username   = 'porteriascalas@bjrzum.in';                     //SMTP username
+        $mail->Username   = 'porteriacolegioscalas@bjrzum.in';                     //SMTP username
         $mail->Password   = 'Damar12345.';                               //SMTP password
         //$mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
         $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
         //Recipients
-        $mail->setFrom('porteriascalas@bjrzum.in', 'PORTERIA SCALAS');
+        $mail->setFrom('porteriacolegioscalas@bjrzum.in', 'PORTERIA SCALAS');
         $mail->addAddress('coordinacionconvivenciascalas@gmail.com', 'David Cuello');     //Add a recipient
         $mail->addAddress('aleiderb@gmail.com', 'Aleider Bobadilla');               //Name is optional
         $mail->addAddress('porteriacolegioscalas@gmail.com', 'Porteria scalas');
