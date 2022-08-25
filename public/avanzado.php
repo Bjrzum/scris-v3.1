@@ -142,7 +142,7 @@ date_default_timezone_set('America/Bogota');
                 success: function(response) {
                     if (response == 'correcto') {
                         $('#password').css('border', '2px solid #0a0');
-                        $('#password').attr('placeholder', 'Contraseña correcta');
+                        window.location.href = 'packages/admin/';
                     } else {
                         $('#password').css('border', '2px solid red');
                         $('#password').attr('placeholder', 'Contraseña incorrecta');

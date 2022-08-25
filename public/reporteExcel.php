@@ -20,15 +20,15 @@ $db = new SQLite3('db/scris.db');
 
 if (isset($_POST['sql'])) {
 
-    $query = '
-    UPDATE tabla SET orden = 0 WHERE status = 0 OR status = 1 OR status = 2 OR status = 3;
-    ';
-    $query2 = '
-    UPDATE tabla SET orden = 1 WHERE  status = 4;
-    ';
+    // $query = '
+    // UPDATE tabla SET orden = 0 WHERE status = 0 OR status = 1 OR status = 2 OR status = 3;
+    //';
+    //$query2 = '
+    //UPDATE tabla SET orden = 1 WHERE  status = 4;
+    //';
 
-    $result = $db->query($query);
-    $result2 = $db->query($query2);
+    //$result = $db->query($query);
+    // $result2 = $db->query($query2);
 
 
     $sql = $_POST['sql'];

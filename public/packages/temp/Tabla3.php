@@ -20,8 +20,9 @@ if (isset($_POST['nombre'])) {
     $placa = $fila['placa'];
     $observaciones = $fila['observaciones'];
     $status = 4;
+    $orden = 2;
 
-    $sql2 = "INSERT INTO tabla (fecha, nombre, dependencia, direccion, asignatura, hora_ingreso, hora_salida, placa, observaciones, status) VALUES ('$fecha', '$nombre', '$dependencia', '$direccion', '$asignatura', '', '', '$placa', '$observaciones', '$status')";
+    $sql2 = "INSERT INTO tabla (fecha, nombre, dependencia, direccion, asignatura, hora_ingreso, hora_salida, placa, observaciones, status, orden) VALUES ('$fecha', '$nombre', '$dependencia', '$direccion', '$asignatura', '', '', '$placa', '$observaciones', '$status', '$orden')";
     $resultado2 = $conexion->query($sql2);
     if ($resultado2) {
         echo 'Funcionario agregado a la lista';
