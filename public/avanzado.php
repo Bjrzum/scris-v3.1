@@ -98,6 +98,7 @@ date_default_timezone_set('America/Bogota');
         $('.avanzado').click(function() {
             $('.administrador').addClass('administrador--active');
             $('.cont_adm').addClass('cont_adm--open');
+            $('#password').focus();
         });
         $('.cancel').click(function() {
             $('.administrador').removeClass('administrador--active');
@@ -123,6 +124,28 @@ date_default_timezone_set('America/Bogota');
                         $('#password').css('border', '2px solid red');
                         $('#password').attr('placeholder', 'Contraseña incorrecta');
                         $('#password').val('');
+                    }
+                    console.log(response);
+                }
+            });
+        });
+
+        $('#password').keyup(function() {
+            var contrasena = $('#password').val();
+            //ajax para verificar contraseña
+            $.ajax({
+                url: 'packages/Actions/PassAdvance/PassAdvance.php',
+                type: 'POST',
+                data: {
+                    contrasena: contrasena
+                },
+                success: function(response) {
+                    if (response == 'correcto') {
+                        $('#password').css('border', '2px solid #0a0');
+                        $('#password').attr('placeholder', 'Contraseña correcta');
+                    } else {
+                        $('#password').css('border', '2px solid red');
+                        $('#password').attr('placeholder', 'Contraseña incorrecta');
                     }
                     console.log(response);
                 }
