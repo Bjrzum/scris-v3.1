@@ -30,7 +30,7 @@ date_default_timezone_set('America/Bogota');
         }
 
         tr {
-            background-color: #ffa;
+            background-color: #6d6;
         }
 
         <?php
@@ -62,18 +62,14 @@ date_default_timezone_set('America/Bogota');
     <section class="section">
         <div class="flex">
             <table class="tabla">
-                <caption>
-                    <h2 class="table-title">personal que dejó de laborar</h2>
+                <caption class="caption">
+                    <h2 class="table-title">fecha de inicio de labores del personal</h2>
                 </caption>
                 <thead>
                     <tr>
                         <th class="fec">fecha</th>
                         <th class="nom">nombre</th>
                         <th class="dep">dependencia</th>
-                        <th class="dir">dirección de curso</th>
-                        <th class="asig">asignatura</th>
-                        <th class="pla">placa de vehiculo</th>
-                        <th class="obs">observaciones</th>
                         <th class="act">acciones</th>
                     </tr>
                 </thead>
@@ -83,49 +79,28 @@ date_default_timezone_set('America/Bogota');
                     include 'packages/Conexion.php';
                     require_once 'packages/functions/tabla.php';
 
-
-
-                    $directivos = "";
-                    $docentes = "";
-                    $serviciosGenerales = "";
-                    $administrativos = "";
-                    $funcionarioCafeteria = "";
-                    $seguridad = "";
-                    $mensajeria = "";
-                    $funcionarioExterno = "";
-                    $fecha_hoy = date("Y/m/d");
-
-
                     $ruta = 'db/scris.db';
                     $conexion = conectar($ruta);
                     //seleccionar de tabla todos a la fecha actual y que no sean novedades estatus 4
-                    $sql = "SELECT * FROM funcionarios_eliminados ORDER BY fecha_eliminacion ASC";
+                    $sql = "SELECT * FROM inicio_de_labores ORDER BY fecha ASC";
                     $resultado = $conexion->query($sql);
 
                     while ($fila = $resultado->fetch()) {
 
                         $id = $fila['id'];
-                        $fecha = $fila['fecha_eliminacion'];
+                        $fecha = $fila['fecha'];
                         $nombre = $fila['nombre'];
-                        $dependencia = $fila['dependencia'];
-                        $direccion = $fila['direccion'];
-                        $asignatura = $fila['asignatura'];
-                        $placa = $fila['placa'];
-                        $observaciones = $fila['observaciones'];
 
-                        if ($observaciones == '' || $observaciones == null) {
-                            $observaciones = "TERMINÓ LABORES EN SCALAS";
-                        }
+                        $sql2 = "SELECT dependencia FROM funcionarios WHERE nombre = '$nombre'";
+                        $resultado2 = $conexion->query($sql2);
+                        $dependencia = $resultado2->fetch();
+                        $dependencia = $dependencia['dependencia'];
 
                         echo '
                      <tr>
                         <td><textarea class="fecha" data-class="' . $id . '">' . $fecha . '</textarea></td>
                         <td>' . $nombre . '</td>
                         <td>' . $dependencia . '</td>
-                        <td>' . $direccion . '</td>
-                        <td>' . $asignatura . '</td>
-                        <td>' . $placa . '</td>
-                        <td><textarea class="observaciones" data-class="' . $id . '">' . $observaciones . '</textarea></td>
                         <td><button class="btn-dlt" data-class="' . $id . '">Eliminar</button></td>
                      </tr>
                     ';
@@ -154,9 +129,6 @@ date_default_timezone_set('America/Bogota');
                 //quitar espacios y puntos
                 text = text.replace(/\s/g, '');
                 text = text.replace(/\./g, '');
-                if (text == 'fecha') {
-                    text = 'fecha_eliminacion';
-                }
                 var err = false;
 
                 if (bool) {
@@ -225,7 +197,7 @@ date_default_timezone_set('America/Bogota');
 
 
                     $(this).css('border', 'none');
-                    let sql = "UPDATE funcionarios_eliminados SET " + text + " = '" + valor + "' WHERE id = " + id;
+                    let sql = "UPDATE inicio_de_labores SET " + text + " = '" + valor + "' WHERE id = " + id;
 
                     $.ajax({
                         url: 'packages/Actions/eliminados.php',
@@ -246,7 +218,7 @@ date_default_timezone_set('America/Bogota');
 
         $('.btn-dlt').click(function() {
             var id = $(this).data('class');
-            var sql = "DELETE FROM funcionarios_eliminados WHERE id = " + id;
+            var sql = "DELETE FROM inicio_de_labores WHERE id = " + id;
             $.ajax({
                 url: 'packages/Actions/eliminados.php',
                 type: 'POST',
