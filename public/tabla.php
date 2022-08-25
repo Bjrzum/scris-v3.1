@@ -60,6 +60,9 @@ date_default_timezone_set('America/Bogota');
             <div class="generar__excel">
                 <a href="generar_excel.php" class="link__excel">Enviar Reporte</a>
                 <button class="btn-mas"><i class="bi bi-caret-down-fill"></i></button>
+                <button class="search10">
+                    <i class="bi bi-arrow-repeat"></i>
+                </button>
 
                 <div class="buscar-mas">
                     <input type="date" name="inicio" id="inicio">
@@ -154,6 +157,16 @@ date_default_timezone_set('America/Bogota');
     <footer class="footer">
         <p>&copy; 2022 - SCRIS | Todos los derechos reservados</p>
     </footer>
+    <button id="top">
+        <i class="bi bi-caret-up-fill"></i>
+    </button>
+    <script>
+        $('#top').click(function() {
+            $('html, body').animate({
+                scrollTop: 0
+            }, 500);
+        });
+    </script>
     <script>
         <?php include 'js/tabla.js'; ?>
 

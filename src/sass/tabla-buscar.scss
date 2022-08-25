@@ -35,3 +35,27 @@
 .t-margin {
     margin-top: 5em;
 }
+
+.search10 {
+    @extend .btn-mas;
+}
+
+#top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000000;
+    //display: inline-block;
+    display: none;
+    padding: .5em;
+    background-color: #008000;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    color: #fff;
+
+    &:hover {
+        background-color: #006100;
+        cursor: pointer;
+    }
+
+}
