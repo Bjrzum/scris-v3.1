@@ -166,6 +166,14 @@ date_default_timezone_set('America/Bogota');
                 scrollTop: 0
             }, 500);
         });
+
+        //ajustar tamañp de los textareas segun el contenido que se ingrese
+        $('textarea').each(function() {
+            this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
+        }).on('input', function() {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+        });
     </script>
     <script>
         <?php include 'js/tabla.js'; ?>

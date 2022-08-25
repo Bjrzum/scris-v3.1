@@ -4,6 +4,8 @@ session_start();
 if (isset($_SESSION['logado']) && $_SESSION['logado'] == true) {
     header('Location: inicio.php');
 }
+
+
 ?>
 <!DOCTYPE html>
 <html lang="es">

@@ -17,11 +17,11 @@
             border-radius: 5px;
             background-color: #00a65a;
             transition: all 0.3s ease;
+            border: 1px solid #013808;
 
             &:hover {
                 background-color: #00500a;
                 color: #fff;
-                border: 1px solid #fff;
             }
         }
     }
@@ -35,7 +35,7 @@
             font-size: 1em;
 
             padding: 0.5em 1em;
-            border: 1px solid #fff;
+            border: 1px solid #013808;
             border-radius: 5px;
             background-color: #00a65a;
             transition: all 0.3s ease;
@@ -44,42 +44,61 @@
             &:hover {
                 background-color: #00500a;
                 color: #fff;
-                border: 1px solid #fff;
+                border: 1px solid #013808;
                 cursor: pointer;
             }
         }
     }
 }
 
+$cDoc: #BDD7EE;
+$cAdm: #00B050;
+$cDir: #00B0F0;
+$cCaf: #FFE699;
+$cMen: #8780cc;
+$cSG: #C6E0B4;
+$cSeg: #aaaaaa;
+$cExt: #eeeeee;
+$cTarde: #ff0000;
+$cNovedad: #fff000;
+$cHead: #C65911;
+$tLtable: 10px;
+$fWtable: 600;
+
 .status-2,
 .status-3,
 .status-4 {
-    background-color: #e5ff00 !important;
+    background-color: $cNovedad  !important;
 }
 
 .btn-eliminar-true {
-    background-color: #ff0000 !important;
+    background-color: $cTarde  !important;
 }
 
 table {
     // width: 100%;
     border-collapse: collapse;
     border-spacing: 0;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 14px;
+    //calibri
+    font-family: 'Calibri', sans-serif;
+    font-size: $tLtable;
     color: #000;
     background: #fff;
     //padding: 1em;
     //display: inline-block;
     text-align: center;
     margin: auto;
+    font-weight: $fWtable  !important;
+    width: 100%;
+    padding: 1em;
 
     thead {
         text-transform: uppercase;
         text-align: center;
+        font-size: 12px;
 
         tr {
-            background: #555;
+            background: $cHead;
             color: #fff;
             font-weight: bold;
         }
@@ -134,35 +153,35 @@ table {
     tbody {
 
         .DIRECTIVO {
-            background-color: #049df5;
+            background-color: $cDir;
         }
 
         .DOCENTE {
-            background-color: #06b153;
+            background-color: $cDoc;
         }
 
         .SERVICIOS {
-            background-color: #7e059c;
+            background-color: $cSG;
         }
 
         .FUNCIONARIO {
-            background-color: #f87902;
+            background-color: $cCaf;
         }
 
         .MENSAJERÍA {
-            background-color: #005383;
+            background-color: $cMen;
         }
 
         .EXTERNO {
-            background-color: #f5d001;
+            background-color: $cExt;
         }
 
         .SEGURIDAD {
-            background-color: #df4b06;
+            background-color: $cSeg;
         }
 
         .ADMINISTRATIVO {
-            background-color: #0ec41d;
+            background-color: $cAdm;
         }
 
         .tr-novedad {
@@ -193,9 +212,22 @@ table {
         }
 
         tr {
+            textarea {
+                font-weight: $fWtable;
+                font-size: $tLtable;
+            }
+
             .hora__novedad {
-                background-color: #f74c4c !important;
+                textarea {
+                    color: $cTarde  !important;
+                }
+
             }
         }
     }
+}
+
+.section {
+    padding: 0;
+    background-color: #fff;
 }

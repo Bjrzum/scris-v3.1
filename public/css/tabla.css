@@ -16,11 +16,11 @@
   border-radius: 5px;
   background-color: #00a65a;
   transition: all 0.3s ease;
+  border: 1px solid #013808;
 }
 .header2 .generar__excel a:hover {
   background-color: #00500a;
   color: #fff;
-  border: 1px solid #fff;
 }
 .header2 .administrar__tabla {
   display: flex;
@@ -29,7 +29,7 @@
   color: #fff;
   font-size: 1em;
   padding: 0.5em 1em;
-  border: 1px solid #fff;
+  border: 1px solid #013808;
   border-radius: 5px;
   background-color: #00a65a;
   transition: all 0.3s ease;
@@ -38,14 +38,14 @@
 .header2 .administrar__tabla button:hover {
   background-color: #00500a;
   color: #fff;
-  border: 1px solid #fff;
+  border: 1px solid #013808;
   cursor: pointer;
 }
 
 .status-2,
 .status-3,
 .status-4 {
-  background-color: #e5ff00 !important;
+  background-color: #fff000 !important;
 }
 
 .btn-eliminar-true {
@@ -55,19 +55,23 @@
 table {
   border-collapse: collapse;
   border-spacing: 0;
-  font-family: "Open Sans", sans-serif;
-  font-size: 14px;
+  font-family: "Calibri", sans-serif;
+  font-size: 10px;
   color: #000;
   background: #fff;
   text-align: center;
   margin: auto;
+  font-weight: 600 !important;
+  width: 100%;
+  padding: 1em;
 }
 table thead {
   text-transform: uppercase;
   text-align: center;
+  font-size: 12px;
 }
 table thead tr {
-  background: #555;
+  background: #C65911;
   color: #fff;
   font-weight: bold;
 }
@@ -107,28 +111,28 @@ table td {
   padding: 0.5em;
 }
 table tbody .DIRECTIVO {
-  background-color: #049df5;
+  background-color: #00B0F0;
 }
 table tbody .DOCENTE {
-  background-color: #06b153;
+  background-color: #BDD7EE;
 }
 table tbody .SERVICIOS {
-  background-color: #7e059c;
+  background-color: #C6E0B4;
 }
 table tbody .FUNCIONARIO {
-  background-color: #f87902;
+  background-color: #FFE699;
 }
 table tbody .MENSAJERÍA {
-  background-color: #005383;
+  background-color: #8780cc;
 }
 table tbody .EXTERNO {
-  background-color: #f5d001;
+  background-color: #eeeeee;
 }
 table tbody .SEGURIDAD {
-  background-color: #df4b06;
+  background-color: #aaaaaa;
 }
 table tbody .ADMINISTRATIVO {
-  background-color: #0ec41d;
+  background-color: #00B050;
 }
 table tbody .tr-novedad {
   background-color: #333 !important;
@@ -153,6 +157,15 @@ table tbody textarea {
   text-align: center;
   resize: none;
 }
-table tbody tr .hora__novedad {
-  background-color: #f74c4c !important;
+table tbody tr textarea {
+  font-weight: 600;
+  font-size: 10px;
+}
+table tbody tr .hora__novedad textarea {
+  color: #ff0000 !important;
+}
+
+.section {
+  padding: 0;
+  background-color: #fff;
 }

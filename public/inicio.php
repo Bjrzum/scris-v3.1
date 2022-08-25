@@ -7,7 +7,6 @@ if (!isset($_SESSION['logado']) && $_SESSION['logado'] != true) {
 //zona horaria de colombia
 date_default_timezone_set('America/Bogota');
 
-
 ?>
 
 <!DOCTYPE html>
@@ -23,17 +22,19 @@ date_default_timezone_set('America/Bogota');
     <script src="js/library/jquery/dist/jquery.min.js"></script>
     <title>SCRIS | Ingresos</title>
     <style>
-    .footer p {
-        text-align: center;
-        padding: 1em;
-        color: #fffa;
-    }
-    .psicologia{
-        background:#444;
-    }
-    .psicologia:hover{
-        background:#333;
-    }
+        .footer p {
+            text-align: center;
+            padding: 1em;
+            color: #fffa;
+        }
+
+        .psicologia {
+            background: #444;
+        }
+
+        .psicologia:hover {
+            background: #333;
+        }
     </style>
 </head>
 
@@ -70,7 +71,7 @@ date_default_timezone_set('America/Bogota');
             $funcionarioCafeteria = "";
             $seguridad = "";
             $mensajeria = "";
-             $psicologia = "";
+            $psicologia = "";
             $funcionarioExterno = "";
             $fecha_hoy = date("Y/m/d");
 
@@ -140,7 +141,7 @@ date_default_timezone_set('America/Bogota');
                 </div>
             </div>';
             }
-            
+
             if ($psicologia != "") {
                 echo '<div class="funcionarios">
                 <h2>Psicología</h2>
@@ -205,55 +206,55 @@ date_default_timezone_set('America/Bogota');
         <p>&copy; 2022 - SCRIS | Todos los derechos reservados</p>
     </footer>
     <script>
-    $('.btn__funcionario').click(function() {
-        var nombre = $(this).text();
-        //fecha YYYY/MM/DD
-        var fecha = new Date();
-        var dia = fecha.getDate();
-        var mes = fecha.getMonth() + 1;
-        var anio = fecha.getFullYear();
-        var hora = fecha.getHours();
-        var minutos = fecha.getMinutes();
+        $('.btn__funcionario').click(function() {
+            var nombre = $(this).text();
+            //fecha YYYY/MM/DD
+            var fecha = new Date();
+            var dia = fecha.getDate();
+            var mes = fecha.getMonth() + 1;
+            var anio = fecha.getFullYear();
+            var hora = fecha.getHours();
+            var minutos = fecha.getMinutes();
 
-        if (dia < 10) {
-            dia = '0' + dia;
-        }
-
-        if (mes < 10) {
-            mes = '0' + mes;
-        }
-        if (hora < 10) {
-            hora = '0' + hora;
-        }
-
-        if (minutos < 10) {
-            minutos = "0" + minutos;
-        }
-
-
-        var fecha = anio + "/" + mes + "/" + dia;
-        var horas = hora + ":" + minutos;
-
-
-        $(this).hide();
-
-        $.ajax({
-            url: 'packages/temp/Tabla.php',
-            type: 'POST',
-            data: {
-                nombre: nombre,
-                fecha: fecha,
-                hora: horas
-            },
-            success: function(respuesta) {
-
-
-                console.log(respuesta);
-                //ocultar elemento clickeado
-
+            if (dia < 10) {
+                dia = '0' + dia;
             }
+
+            if (mes < 10) {
+                mes = '0' + mes;
+            }
+            if (hora < 10) {
+                hora = '0' + hora;
+            }
+
+            if (minutos < 10) {
+                minutos = "0" + minutos;
+            }
+
+
+            var fecha = anio + "/" + mes + "/" + dia;
+            var horas = hora + ":" + minutos;
+
+
+            $(this).hide();
+
+            $.ajax({
+                url: 'packages/temp/Tabla.php',
+                type: 'POST',
+                data: {
+                    nombre: nombre,
+                    fecha: fecha,
+                    hora: horas
+                },
+                success: function(respuesta) {
+
+
+                    console.log(respuesta);
+                    //ocultar elemento clickeado
+
+                }
+            });
         });
-    });
     </script>
 
 </body>
